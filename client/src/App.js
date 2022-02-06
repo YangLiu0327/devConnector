@@ -10,18 +10,20 @@ import store from './store';
 import './App.css';
 
 const App = () => {
-  <Provider store={store}>
-    <Router>
-      <Fragment>
-        <Navbar />
-        <Routes>
-          <Route path="/" element={<Landing />} />
-          <Route path='register' element={<Register />} />
-          <Route path='login' element={<Login />} />
-        </Routes>
-      </Fragment>
-    </Router>
-  </Provider>
+  return (
+    <Provider store={store}>
+      <Router>
+        <Fragment>
+          <Navbar />
+          <Routes>
+            <Route path="/" element={<Landing />} />
+            <Route path='register' element={<Register />} />
+            <Route path='login' element={<Login />} />
+          </Routes>
+        </Fragment>
+      </Router>
+    </Provider>
+  )
 }
 
 export default App;
