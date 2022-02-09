@@ -7,6 +7,7 @@ import DashboardActions from './DashboardActions';
 import { getCurrentProfile } from '../../actions/profile';
 import Experience from './Experience';
 import Education from './Education';
+
 const Dashboard = ({ 
   getCurrentProfile, 
   auth: { user },

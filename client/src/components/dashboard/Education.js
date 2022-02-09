@@ -46,4 +46,4 @@ Education.propTypes = {
   deleteEducation: PropTypes.func.isRequired
 };
 
-export default connect()(Education);
+export default connect(null, { deleteEducation })(Education);
