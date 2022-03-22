@@ -6,46 +6,51 @@ import { connect } from 'react-redux';
 import { addLike, removeLike, deletePost } from '../../actions/post';
 
 
+// post 从父组件传来 object
+// auth 从state中拿来
 const PostItem = ({
   addLike,
   removeLike,
   deletePost,
-  auth, post: { _id, text, name, avatar, user, likes, comments, date },
+  auth, 
+  post,
+  // post: { _id, text, name, avatar, user, likes, comments, date },
   showActions
 }) =>
+
 (
   <div className="post bg-white p-1 my-1">
     <div>
-      <Link to={`/profile/${user}`}>
-        <img className="round-img" src={avatar} alt="" />
-        <h4>{name}</h4>
+      <Link to={`/profile/${post.user}`}>
+        <img className="round-img" src={post.avatar} alt="" />
+        <h4>{post.name}</h4>
       </Link>
+      {console.log(post, "this is post from parent component")}
     </div>
     <div>
-      <p className="my-1">{text}</p>
-      <p className="post-date">Posted on {formatDate(date)}</p>
-
+      <p className="my-1">{post.text}</p>
+      <p className="post-date">Posted on {formatDate(post.date)}</p>
       {showActions && <Fragment>
         <button
-          onClick={() => addLike(_id)}
+          onClick={() => addLike(post._id)}
           type="button" className='btn btn-light'>
-          <i className='fas fa-thumbs-up' />{' '}
-          <span>{likes.length > 0 && <span>{likes.length}</span>}</span>
+          <i className='fas fa-thumbs-up'  />{' '}
+          <span>{post.likes.length > 0 && <span>{post.likes.length}</span>}</span>
         </button>
         <button
-          onClick={() => removeLike(_id)}
+          onClick={() => removeLike(post._id)}
           type='button' className='btn btn-light'>
           <i className='fas fa-thumbs-down' />
         </button>
-        <Link to={`/posts/${_id}`} className='btn btn-primary'>
+        <Link to={`/posts/${post._id}`} className='btn btn-primary'>
           Discussion{' '}
-          {comments.length > 0 && (
-            <span className='comment-count'>{comments.length}</span>
+          {post.comments.length > 0 && (
+            <span className='comment-count'>{post.comments.length}</span>
           )}
         </Link>
-        {!auth.loading && user === auth.user._id && (
+        {!auth.loading && post.user === auth.user._id && (
           <button
-            onClick={() => deletePost(_id)}
+            onClick={() => deletePost(post._id)}
             type="button"
             className="btn btn-danger"
           >
@@ -71,7 +76,10 @@ PostItem.propTypes = {
 
 
 const mapStateToProps = (state) => ({
-  auth: state.auth
+  auth: state.auth,
 });
+
+
+
 
 export default connect(mapStateToProps, { addLike, removeLike, deletePost })(PostItem);

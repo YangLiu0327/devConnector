@@ -15,7 +15,7 @@ import {
 export const getPosts = () => async dispatch => {
   try{
     const res = await axios.get('/api/posts');
-
+    // console.log(res.data, 'this is for getposts res')
     dispatch({
       type: GET_POSTS,
       payload: res.data
@@ -32,7 +32,8 @@ export const getPosts = () => async dispatch => {
 export const addLike = id => async dispatch => {
   try{
     const res = await axios.put(`/api/posts/like/${id}`);
-
+    // res 中只有user 和 id
+    // console.log(res, 'this is res for add like')
     dispatch({
       type: UPDATE_LIKES,
       payload: { id, likes: res.data}
@@ -50,7 +51,8 @@ export const addLike = id => async dispatch => {
 export const removeLike = (id) => async (dispatch) => {
   try {
     const res = await axios.put(`/api/posts/unlike/${id}`);
-
+    // console.log(res)
+    // remove like => empty array
     dispatch({
       type: UPDATE_LIKES,
       payload: { id, likes: res.data }
@@ -93,7 +95,7 @@ export const addPost = formData => async (dispatch) => {
   }
   try {
     const res = await axios.post('/api/posts', formData, config);
-
+    // console.log(res, 'this is res for add post')
     dispatch({
       type: ADD_POST,
       payload: res.data
